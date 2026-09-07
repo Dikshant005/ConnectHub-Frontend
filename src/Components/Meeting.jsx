@@ -10,6 +10,7 @@ import ParticipantsPanel from "./ParticipantsPanel";
 import VideoGrid from "./VideoGrid";
 import MeetingToolbar from "./MeetingToolbar";
 import { InfoModal, ConfirmationModal } from "./MeetingModals";
+import { getLoginToken } from "../utils/auth";
 
 export default function Meeting() {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function Meeting() {
     const meetTitle = localStorage.getItem("meetTitle");
     const userName = localStorage.getItem("userName") || "You";
     const { participants, refetch: refetchParticipants } = useParticipants(roomId, socket);
-    const loginToken = localStorage.getItem("loginToken");
+    const loginToken = getLoginToken();
 
     const apiRequest = async (url, method, body = null) => {
         const headers = {
@@ -198,7 +199,7 @@ export default function Meeting() {
         if (!roomId) return;
         const fetchHostInfo = async () => {
             try {
-                const token = localStorage.getItem("loginToken");
+                const token = getLoginToken();
                 const res = await fetch(
                     `https://connecthub.dikshant-ahalawat.live/meetings/${roomId}/participants`,
                     { headers: { Authorization: `Bearer ${token}` } }
@@ -215,7 +216,7 @@ export default function Meeting() {
     // ✅ Finalize meeting — defined outside useEffect so endMeeting can call it too
     const finalizeMeetingEnd = useCallback(async () => {
         console.log("🏁 Calling /end...");
-        const token = localStorage.getItem("loginToken");
+        const token = getLoginToken();
         try {
             const res = await fetch('https://connecthub.dikshant-ahalawat.live/meetings/end', {
                 method: 'POST',
@@ -288,7 +289,7 @@ export default function Meeting() {
             formData.append('meetingId', roomId);
             formData.append('chunkIndex', String(index));
 
-            const token = localStorage.getItem("loginToken");
+            const token = getLoginToken();
             try {
                 const res = await fetch('https://connecthub.dikshant-ahalawat.live/meetings/chunk', {
                     method: 'POST',
@@ -504,7 +505,7 @@ export default function Meeting() {
         socket?.disconnect();
 
         const currentRoomId = roomId;
-        const token = localStorage.getItem("loginToken");
+        const token = getLoginToken();
 
         clearMeetingStorage();
         navigate("/home", { replace: true });

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./Styles/chatPanel.css";
+import { getLoginToken } from "../utils/auth";
 
 export default function ChatPanel({ isOpen, onClose, socket, roomId, userId, userName }) {
     const [messages, setMessages] = useState([]);
@@ -18,7 +19,7 @@ export default function ChatPanel({ isOpen, onClose, socket, roomId, userId, use
 
         async function loadHistory() {
             try {
-                const token = localStorage.getItem("loginToken");
+                const token = getLoginToken();
                 const res = await fetch(`https://connecthub.dikshant-ahalawat.live/chat/${roomId}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`,

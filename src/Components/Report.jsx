@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSocket } from "../Hooks/useSocket";
+import { getLoginToken } from "../utils/auth";
 import "./Styles/report.css";
 
 export default function Report() {
@@ -27,7 +28,7 @@ export default function Report() {
             if (!isSilent) setLoading(true);
             setError(null);
             
-            const token = localStorage.getItem("loginToken");
+            const token = getLoginToken();
             if (!token) {
                 throw new Error("Authentication token not found.");
             }
@@ -151,7 +152,7 @@ export default function Report() {
 
     const handleDownloadPDF = async () => {
         try {
-            const token = localStorage.getItem("loginToken");
+            const token = getLoginToken();
             const res = await fetch(`https://connecthub.dikshant-ahalawat.live/meetings/${meetingId}/report/download`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
