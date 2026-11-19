@@ -36,7 +36,7 @@ function ResetPassword() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('https://connecthub.dikshant-ahalawat.live/auth/reset-password', {
+            const response = await fetch('https://connecthub.dikshant.tech/auth/reset-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

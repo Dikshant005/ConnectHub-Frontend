@@ -20,7 +20,7 @@ export default function ChatPanel({ isOpen, onClose, socket, roomId, userId, use
         async function loadHistory() {
             try {
                 const token = getLoginToken();
-                const res = await fetch(`https://connecthub.dikshant-ahalawat.live/chat/${roomId}`, {
+                const res = await fetch(`https://connecthub.dikshant.tech/chat/${roomId}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
                         "Content-Type": "application/json"

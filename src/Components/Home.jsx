@@ -22,7 +22,7 @@ function Home() {
     useEffect(() => {
         const fetchReports = async () => {
             try {
-                const data = await apiRequest('https://connecthub.dikshant-ahalawat.live/meetings/reports/me', 'GET');
+                const data = await apiRequest('https://connecthub.dikshant.tech/meetings/reports/me', 'GET');
                 if (Array.isArray(data)) {
                     setReports(data);
                 } else if (data && Array.isArray(data.meetings)) {
@@ -74,7 +74,7 @@ function Home() {
 
     const handleCreateMeeting = async (title) => {
         try {
-            const createData = await apiRequest('https://connecthub.dikshant-ahalawat.live/meetings', 'POST', {
+            const createData = await apiRequest('https://connecthub.dikshant.tech/meetings', 'POST', {
                 title: title,
                 scheduledAt: new Date().toISOString()
             });
@@ -86,7 +86,7 @@ function Home() {
             }
 
             const userId = localStorage.getItem("userId");
-            const joinData = await apiRequest(`https://connecthub.dikshant-ahalawat.live/meetings/${roomId}/join`, 'POST', { roomId });
+            const joinData = await apiRequest(`https://connecthub.dikshant.tech/meetings/${roomId}/join`, 'POST', { roomId });
 
             console.log("Response from server:", joinData);
             const { token, livekitUrl } = joinData;
@@ -116,7 +116,7 @@ function Home() {
                 toast.error("User session missing.");
                 return;
             }
-            const joinData = await apiRequest(`https://connecthub.dikshant-ahalawat.live/meetings/${roomId}/join`, 'POST', { roomId });
+            const joinData = await apiRequest(`https://connecthub.dikshant.tech/meetings/${roomId}/join`, 'POST', { roomId });
             
             console.log("Response from server:", joinData);
             const { token, livekitUrl } = joinData;
@@ -140,7 +140,7 @@ function Home() {
 
     const handleChangePassword = async (newPassword) => {
         try {
-            await apiRequest('https://connecthub.dikshant-ahalawat.live/auth/reset-password', 'POST', { newPassword });
+            await apiRequest('https://connecthub.dikshant.tech/auth/reset-password', 'POST', { newPassword });
             toast.success("Password updated successfully!");
             setModalType(null);
         } catch (err) {
@@ -150,7 +150,7 @@ function Home() {
 
     const handleLogout = async () => {
         try {
-            if (loginToken) await apiRequest('https://connecthub.dikshant-ahalawat.live/auth/logout', 'POST');
+            if (loginToken) await apiRequest('https://connecthub.dikshant.tech/auth/logout', 'POST');
         } catch (err) {
             console.error(err);
         } finally {

@@ -33,7 +33,7 @@ export default function Report() {
                 throw new Error("Authentication token not found.");
             }
 
-            const res = await fetch(`https://connecthub.dikshant-ahalawat.live/meetings/${meetingId}/report`, {
+            const res = await fetch(`https://connecthub.dikshant.tech/meetings/${meetingId}/report`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -153,7 +153,7 @@ export default function Report() {
     const handleDownloadPDF = async () => {
         try {
             const token = getLoginToken();
-            const res = await fetch(`https://connecthub.dikshant-ahalawat.live/meetings/${meetingId}/report/download`, {
+            const res = await fetch(`https://connecthub.dikshant.tech/meetings/${meetingId}/report/download`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
